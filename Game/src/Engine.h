@@ -1,5 +1,7 @@
 #pragma once
 #include "Window.h"
+#include "Renderer.h"
+#include "Shader.h"
 
 
 namespace Engine {
@@ -12,8 +14,12 @@ namespace Engine {
 		void Start();
 
 	private:
-		Window* window;
 		void MainLoop();
+
+		Object* obj1;
+		Window m_Window;
+		Renderer m_Renderer;
+		Shader m_Shader;
 	};
 
 }
