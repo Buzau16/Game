@@ -11,7 +11,7 @@ public:
 	~Renderer() = default;
 
 	void AddObject(Object* object) { m_Objects.push_back(object); };
-	void Draw();
+	void Draw(float ts);
 
 	void setShader(const Shader& shader);
 

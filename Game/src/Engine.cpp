@@ -33,9 +33,13 @@ namespace Engine {
 
 	void Engine::MainLoop()
 	{
+		
+		uint32_t fT = 0;
+		float timeStep = 0;
 		GLfloat position = 0.0f;
 		bool dir = false;
 		while (!m_Window.IsClosed()) {
+			uint32_t sT = SDL_GetPerformanceCounter();
 			if (abs(position) >= 1) 
 				dir = !dir;
 
@@ -47,8 +51,10 @@ namespace Engine {
 			obj1->TranslateX(position);
 
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			m_Renderer.Draw();
+			m_Renderer.Draw(timeStep);
 			SDL_GL_SwapWindow(m_Window.GetWindow());
+			fT = SDL_GetPerformanceCounter();
+			timeStep = sT - fT;
 		}
 	}
 }

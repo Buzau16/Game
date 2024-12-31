@@ -30,6 +30,16 @@ void Object::RotateZ(const float angle)
 	m_Rotation.z = angle;
 }
 
+void Object::SetGravity(bool value)
+{
+	m_Gravity = value;
+}
+
+void Object::ModifyMass(float mass)
+{
+	m_Mass = mass;
+}
+
 void Object::Scale(const float scale)
 {
 	m_Scale = glm::vec3(scale);
@@ -68,6 +78,11 @@ void Object::DrawObject(const Shader& shader)
 	glBindVertexArray(0);
 }
 
+void Object::Update(float ts)
+{
+	HandleGravity(ts);
+}
+
 glm::mat4 Object::HandleModelMatrix() const
 {
 	glm::mat4 model(1.0f);
@@ -79,4 +94,13 @@ glm::mat4 Object::HandleModelMatrix() const
 	model = glm::scale(model, m_Scale);
 
 	return model;
+}
+
+void Object::HandleGravity(float ts)
+{
+	float velocity = 0;
+	float acceleration = m_gAcc * m_Mass * ts;
+	/*velocity += acceleration;*/
+	m_Position = glm::vec3(m_Position.x, m_Position.y + -0.01, m_Position.z);
+	
 }

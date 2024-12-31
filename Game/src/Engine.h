@@ -20,6 +20,8 @@ namespace Engine {
 		Window m_Window;
 		Renderer m_Renderer;
 		Shader m_Shader;
+
+		float ts = 0;
 	};
 
 }

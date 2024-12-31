@@ -7,7 +7,7 @@
 #include <fstream>
 #include <string>
 
-class Shader {
+static class Shader {
 public:
 		Shader() = default;
 		Shader(const char* vertexLocation, const char* fragmentLocation);
