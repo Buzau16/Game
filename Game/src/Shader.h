@@ -7,7 +7,7 @@
 #include <fstream>
 #include <string>
 
-static class Shader {
+class Shader {
 public:
 		Shader() = default;
 		Shader(const char* vertexLocation, const char* fragmentLocation);
@@ -19,6 +19,7 @@ public:
 		void UseShader() const;
 		void ClearShader();
 		void SetUniformMatrix(const std::string& name, glm::mat4 matrix);
+		void SetUnifromVec3(const std::string& name, glm::vec3 vector);
 
 		~Shader() = default;
 

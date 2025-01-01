@@ -15,18 +15,24 @@ void Object::TranslateZ(const float pos)
 	m_Position.z = pos;
 }
 
-void Object::RotateX(const float angle)
+void Object::RotateX(float& angle)
 {
+	if (angle >= 360.f)
+		angle = 0.0f;
 	m_Rotation.x = angle;
 }
 
-void Object::RotateY(const float angle)
+void Object::RotateY(float& angle)
 {
+	if (angle >= 360.f)
+		angle = 0.0f;
 	m_Rotation.y = angle;
 }
 
-void Object::RotateZ(const float angle)
+void Object::RotateZ(float& angle)
 {
+	if (angle >= 360.f)
+		angle = 0.0f;
 	m_Rotation.z = angle;
 }
 
@@ -40,32 +46,19 @@ void Object::ModifyMass(float mass)
 	m_Mass = mass;
 }
 
+void Object::SetColor(float r, float g, float b)
+{
+	m_Color = glm::vec3(r, g, b);
+}
+
 void Object::Scale(const float scale)
 {
 	m_Scale = glm::vec3(scale);
 }
 
-void Object::CreateObject(const GLfloat* vertices, const GLuint* indices, GLuint nV, GLuint nI)
+void Object::CreateObject(const Shape& shape)
 {
-	m_IC = nI;
-	glGenVertexArrays(1, &m_VAO);
-	glBindVertexArray(m_VAO);
-
-	glGenBuffers(1, &m_EBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * nI, indices, GL_STATIC_DRAW);
-
-	glGenBuffers(1, &m_VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * nV, vertices, GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, (void*)0);
-	glEnableVertexAttribArray(0);
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-	glBindVertexArray(0);
+	CreateGLMesh(shape.vertices.data(), shape.indices.data(), shape.vertices.size(), shape.indices.size());
 }
 
 void Object::DrawObject(const Shader& shader)
@@ -96,11 +89,41 @@ glm::mat4 Object::HandleModelMatrix() const
 	return model;
 }
 
+void Object::CreateGLMesh(const GLfloat* vertices, const GLuint* indices, GLuint nV, GLuint nI)
+{
+	m_IC = nI;
+	glGenVertexArrays(1, &m_VAO);
+	glBindVertexArray(m_VAO);
+
+	glGenBuffers(1, &m_EBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * nI, indices, GL_STATIC_DRAW);
+
+	glGenBuffers(1, &m_VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * nV, vertices, GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, (void*)0);
+	glEnableVertexAttribArray(0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	glBindVertexArray(0);
+}
+
 void Object::HandleGravity(float ts)
 {
-	float velocity = 0;
-	float acceleration = m_gAcc * m_Mass * ts;
-	/*velocity += acceleration;*/
-	m_Position = glm::vec3(m_Position.x, m_Position.y + -0.01, m_Position.z);
-	
+	float velocity = 0.0f;
+	float acceleration = (m_gAcc * m_Mass) * 0.005f;
+	velocity += acceleration * ts;
+
+	std::cout << m_Position.y;
+
+	m_Position.y -= velocity * ts;
+
+	std::cout << m_Position.y << "\n";
+
+	if (m_Position.y <= -1.0f)
+		m_Position.y = -1.0f;
 }

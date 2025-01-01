@@ -8,6 +8,14 @@ void Window::Init()
 		return;
 	}
 
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
+
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+	
+	SDL_GL_SetSwapInterval(0);
+
 	m_Window = SDL_CreateWindow(m_Name.c_str(), 200, 200, m_Width, m_Height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 
 	if (!m_Window) {
@@ -15,15 +23,7 @@ void Window::Init()
 		SDL_Quit();
 		return;
 	}
-
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
-
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-
 	
-
 	m_Context = SDL_GL_CreateContext(m_Window);
 	if (!m_Context) {
 		std::cerr << "Error creating OpenGL context: " << SDL_GetError() << std::endl;
@@ -41,6 +41,7 @@ void Window::Init()
 	}
 
 	glViewport(0, 0, m_Width, m_Height);
+	glEnable(GL_DEPTH_TEST);
 	
 }
 

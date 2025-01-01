@@ -1,12 +1,19 @@
 #include "Renderer.h"
 
-void Renderer::Draw(float ts)
+void Renderer::Init()
+{
+	
+}
+
+void Renderer::Draw(int Width, int Height, float ts)
 {
 	for (auto& obj : m_Objects) {
-		//glm::mat4 model(1.0f);
-		obj->SetGravity(1);
-		obj->Update(ts);
-		m_Shader.SetUniformMatrix("model", obj->HandleModelMatrix());
+
+		glm::mat4 m_Proj = glm::perspective(glm::radians(45.0f), (GLfloat)Width / (GLfloat)Height, 0.1f, 100.0f);
+		m_MVP = m_Proj * m_View * obj->HandleModelMatrix();
+
+		m_Shader.SetUnifromVec3("vCol", obj->GetColor());
+		m_Shader.SetUniformMatrix("MVP", m_MVP);
 		obj->DrawObject(m_Shader);
 	}
 }
