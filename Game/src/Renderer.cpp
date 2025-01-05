@@ -9,7 +9,7 @@ void Renderer::Draw(int Width, int Height)
 {
 	for (auto& obj : m_Objects) {
 
-		glm::mat4 m_Proj = glm::perspective(glm::radians(45.0f), (GLfloat)Width / (GLfloat)Height, 0.1f, 100.0f);
+		glm::mat4 m_Proj = glm::perspective(glm::radians(90.0f), (GLfloat)Width / (GLfloat)Height, 0.1f, 100.0f);
 		m_MVP = m_Proj * m_View * obj->HandleModelMatrix();
 
 		if (!obj->IsVisible()) {
