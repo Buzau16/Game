@@ -7,31 +7,39 @@ namespace Engine {
 		m_Window = Window("SDL", 960, 540);
 		m_Window.Init();
 
-		obj1 = new Object;
-		obj1->CreateObject(Shapes::CreateSquare());
+		player.CreateObject(Shapes::CreateSquare(0.2f));
 
-		obj2 = new Object;
-		obj2->CreateObject(Shapes::CreateSquare());
+		Object* obj1 = new Object;
+		obj1->CreateObject(Shapes::CreateSquare(.01f));
+
+		Object* obj2 = new Object;
+		obj2->CreateObject(Shapes::CreateSquare(.3f));
+
+		Object* obj3 = new Object;
+		obj3->CreateObject(Shapes::CreateRectangle(.5f, 1.0f));
+
+		m_Objects.push_back(obj1);
+		m_Objects.push_back(obj2);
+		m_Objects.push_back(obj3);
 
 		m_Shader = Shader("Shaders/shader.vert", "Shaders/shader.frag");
 		m_Renderer.setShader(m_Shader);
-		m_Renderer.AddObject(obj1);
-		m_Renderer.AddObject(obj2);;
 
-		obj1->TranslateX(-0.7f);
-		obj2->TranslateX(0.7f);
+		m_Renderer.AddObject(&player);
 
-		obj1->TranslateY(-0.5f);
-		obj2->TranslateY(-0.5f);
+		for (auto& obj : m_Objects) {
+			m_Renderer.AddObject(obj);
+		}
 
-		obj1->Scale(0.4f);
-		obj2->Scale(0.4f);
-
-		obj1->TranslateZ(-2.0f);
-		obj2->TranslateZ(-2.0f);
+		
+		
+		obj1->TranslateX(-0.5f);
+		obj2->TranslateX(0.5f);
 
 		obj1->SetColor(0.7f, 0.1f, 0.2f);
 		obj2->SetColor(0.2f, 0.7f, 0.22f);
+
+		player.SetColor(0.8f, 0.2f, 0.3f);
 
 		MainLoop();
 
@@ -48,23 +56,27 @@ namespace Engine {
 		float rot = 0.0f;
 		float nrot = 0.0f;
 		while (!m_Window.IsClosed()) {
+
+			m_Window.PollEvents();
+			m_Window.HandleResizing();
+
 			Uint32 sT = SDL_GetTicks();
+			
 			
 			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			rot += 1.f;
-			obj1->RotateZ(rot);
-			nrot = -rot;
-			obj2->RotateZ(nrot);
-			//std::cout << rot << "\n";
+			//m_Objects[0]->RotateZ(rot);
+			m_Objects[1]->Rotate(rot);
 
-			m_Renderer.Draw(m_Window.GetWidth(), m_Window.GetHeight(), timeStep);
+			player.HandleMovement(timeStep);
+
+			m_Renderer.Draw(m_Window.GetWidth(), m_Window.GetHeight());
 			SDL_GL_SwapWindow(m_Window.GetWindow());
 
 			timeStep = (float)sT - (float)fT;
 			fT = sT;
-			//std::cout << "FPS: " << (int)(1 / (timeStep / 1000)) << "\n";
 		}
 	}
 }

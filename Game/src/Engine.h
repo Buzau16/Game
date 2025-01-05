@@ -2,6 +2,7 @@
 #include "Window.h"
 #include "Renderer.h"
 #include "Shader.h"
+#include <vector>
 
 namespace Engine {
 	class Engine
@@ -15,9 +16,9 @@ namespace Engine {
 	private:
 		void MainLoop();
 
-		Object* obj1;
-		Object* obj2;
-		Object* obj3;
+
+		std::vector<Object*> m_Objects;
+		Player player;
 		Window m_Window;
 		Renderer m_Renderer;
 		Shader m_Shader;

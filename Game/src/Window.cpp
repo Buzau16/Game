@@ -16,10 +16,10 @@ void Window::Init()
 	
 	SDL_GL_SetSwapInterval(0);
 
-	m_Window = SDL_CreateWindow(m_Name.c_str(), 200, 200, m_Width, m_Height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
+	m_Window = SDL_CreateWindow(m_Name.c_str(), 200, 200, m_Width, m_Height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 
 	if (!m_Window) {
-		std::cerr << "Error initializing window: " << SDL_GetError();
+		std::cerr << "Error initializing window: " << SDL_GetError() << std::endl;
 		SDL_Quit();
 		return;
 	}
@@ -53,11 +53,42 @@ void Window::Destroy()
 
 bool Window::IsClosed()
 {
+	return m_IsClosed;
+}
+
+void Window::HandleResizing()
+{
+	if (m_IsResized) {
+		glViewport(0, 0, m_Width, m_Height);
+		m_IsResized = false;
+	}
+}
+
+void Window::PollEvents()
+{
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
-		if (event.type == SDL_QUIT) {
-			return true;
+		switch (event.type)
+		{
+		case SDL_QUIT:
+			m_IsClosed = true;
+			break;
+		case SDL_WINDOWEVENT:
+			if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
+						m_Width = event.window.data1;
+						m_Height = event.window.data2;
+						m_IsResized = true;
+					}
+			break;
+
+		case SDL_KEYDOWN:
+		case SDL_KEYUP:
+			KeyboardHandler::HandleKeyboardEvent(event);
+			break;
+
+		default:
+			break;
 		}
 	}
-	return false;
 }
+

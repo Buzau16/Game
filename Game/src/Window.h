@@ -3,6 +3,8 @@
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
 #include <iostream>
+#include "KeyboardHandler.h"
+
 
 class Window
 {
@@ -18,11 +20,19 @@ public:
 	void Init();
 	void Destroy();
 	bool IsClosed();
+	void HandleResizing();
+	void PollEvents();
 
 private:
+
 	SDL_Window* m_Window;
 	SDL_GLContext m_Context;
 	std::string m_Name;
 	int m_Width, m_Height;
+
+	bool m_IsResized = false;
+	bool m_IsClosed = false;
+
+	
 };
 

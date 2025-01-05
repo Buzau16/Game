@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "Object.h"
+#include "Player.h"
 #include "Window.h"
 
 
@@ -13,9 +14,12 @@ public:
 
 	void Init();
 	void AddObject(Object* object) { m_Objects.push_back(object); };
-	void Draw(int Width, int Height, float ts);
+
+	void Draw(int Width, int Height);
 
 	void setShader(const Shader& shader);
+	
+	
 
 private:
 

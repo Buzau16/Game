@@ -10,31 +10,16 @@ void Object::TranslateY(const float pos)
 	m_Position.y = pos;
 }
 
-void Object::TranslateZ(const float pos)
+void Object::Rotate(float& angle)
 {
-	m_Position.z = pos;
+	m_Rotation = angle;
 }
 
-void Object::RotateX(float& angle)
-{
-	if (angle >= 360.f)
-		angle = 0.0f;
-	m_Rotation.x = angle;
-}
-
-void Object::RotateY(float& angle)
-{
-	if (angle >= 360.f)
-		angle = 0.0f;
-	m_Rotation.y = angle;
-}
-
-void Object::RotateZ(float& angle)
-{
-	if (angle >= 360.f)
-		angle = 0.0f;
-	m_Rotation.z = angle;
-}
+//void Object::RotateZ(float&& angle)
+//{
+//	m_Rotation.z = angle;
+//	std::cout << angle << "\n";
+//}
 
 void Object::SetGravity(bool value)
 {
@@ -53,7 +38,7 @@ void Object::SetColor(float r, float g, float b)
 
 void Object::Scale(const float scale)
 {
-	m_Scale = glm::vec3(scale);
+	m_Scale = glm::vec2(scale);
 }
 
 void Object::CreateObject(const Shape& shape)
@@ -80,11 +65,11 @@ glm::mat4 Object::HandleModelMatrix() const
 {
 	glm::mat4 model(1.0f);
 	
-	model = glm::translate(model, m_Position);
-	model = glm::rotate(model, glm::radians(m_Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(m_Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(m_Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
-	model = glm::scale(model, m_Scale);
+	model = glm::translate(model, glm::vec3(m_Position, -1.0f));
+	/*model = glm::rotate(model, glm::radians(m_Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::rotate(model, glm::radians(m_Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));*/
+	model = glm::rotate(model, glm::radians(m_Rotation), glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::scale(model, glm::vec3(m_Scale, 1.0f));
 
 	return model;
 }
