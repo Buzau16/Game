@@ -149,6 +149,7 @@
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\Shapes.cpp" />
     <ClCompile Include="src\Window.cpp" />
+    <ClCompile Include="src\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\KeyboardHandler.h" />
@@ -160,6 +161,8 @@
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\Shapes.h" />
     <ClInclude Include="src\Window.h" />
+    <ClInclude Include="src\Texture.h" />
+    <ClInclude Include="src\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\shader.frag" />

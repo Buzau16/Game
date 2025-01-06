@@ -6,6 +6,7 @@
 
 #include "Shader.h"
 #include "Shapes.h"
+#include "Texture.h"
 
 class Object {
 public:
@@ -28,6 +29,7 @@ public:
 	void Scale(const float scale);
 
 	void CreateObject(const Shape& shape);
+	void CreateObject(const Shape& shape, Texture& texture);
 	void DrawObject(const Shader& shader);
 
 	
@@ -37,6 +39,7 @@ public:
 protected:
 
 	void CreateGLMesh(const GLfloat* vertices, const GLuint* indices, GLuint nV, GLuint nI);
+	void CreateGLMeshTexture(const GLfloat* vertices, const GLuint* indices, GLuint nV, GLuint nI, Texture& texture);
 	void HandleGravity(float ts);
 	bool m_Gravity = 0;
 	float m_gAcc = 9.0f;
@@ -48,4 +51,6 @@ protected:
 	GLfloat m_Rotation = 0.0f;
 	GLuint m_VAO = 0, m_VBO = 0, m_EBO = 0, m_IC = 0;
 	bool m_IsVisible = true;
+
+	Texture m_Texure;
 };
