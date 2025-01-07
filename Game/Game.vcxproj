@@ -150,6 +150,7 @@
     <ClCompile Include="src\Shapes.cpp" />
     <ClCompile Include="src\Window.cpp" />
     <ClCompile Include="src\Texture.cpp" />
+    <ClCompile Include="src\TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\KeyboardHandler.h" />
@@ -163,6 +164,7 @@
     <ClInclude Include="src\Window.h" />
     <ClInclude Include="src\Texture.h" />
     <ClInclude Include="src\stb_image.h" />
+    <ClInclude Include="src\TextureManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\shader.frag" />

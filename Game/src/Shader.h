@@ -18,8 +18,9 @@ public:
 
 		void UseShader() const;
 		void ClearShader();
-		void SetUniformMatrix(const std::string& name, glm::mat4 matrix);
-		void SetUnifromVec3(const std::string& name, glm::vec3 vector);
+		void SetUniformMatrix(const std::string& name, glm::mat4 matrix) const;
+		void SetUnifromVec3(const std::string& name, glm::vec3 vector) const;
+		void SetUniformInt(const std::string& name, GLint value) const;
 
 		~Shader() = default;
 

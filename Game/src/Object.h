@@ -39,7 +39,7 @@ public:
 protected:
 
 	void CreateGLMesh(const GLfloat* vertices, const GLuint* indices, GLuint nV, GLuint nI);
-	void CreateGLMeshTexture(const GLfloat* vertices, const GLuint* indices, GLuint nV, GLuint nI, Texture& texture);
+
 	void HandleGravity(float ts);
 	bool m_Gravity = 0;
 	float m_gAcc = 9.0f;
@@ -52,5 +52,6 @@ protected:
 	GLuint m_VAO = 0, m_VBO = 0, m_EBO = 0, m_IC = 0;
 	bool m_IsVisible = true;
 
-	Texture m_Texure;
+	Texture* m_Texture;
+	bool m_HasTexture = false;
 };

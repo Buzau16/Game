@@ -16,14 +16,20 @@ class Texture {
 
 
 public:
-	Texture LoadTexture(const char* filePath);
+	Texture() = default;
+	~Texture() {
+		if (m_TextureID) {
+			glDeleteTextures(1, &m_TextureID);
+		}
+	}
+
+	void LoadTexture(const char* filePath);
+
+	GLuint GetTextureID() { return m_TextureID; };
+
 
 private:
-
-	struct TX {
-		GLint m_Width = 0, m_Height = 0, m_BitDepth = 0;
-		GLuint m_TextureID;
-		const char* m_Filelocation;
-	};
+	GLint m_Width = 0, m_Height = 0, m_BitDepth = 0;
+	GLuint m_TextureID;
 
 };

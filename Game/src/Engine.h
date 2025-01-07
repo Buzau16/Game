@@ -15,8 +15,6 @@ namespace Engine {
 
 	private:
 		void MainLoop();
-
-
 		std::vector<Object*> m_Objects;
 		Player player;
 		Window m_Window;

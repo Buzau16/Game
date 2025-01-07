@@ -15,12 +15,6 @@ void Object::Rotate(float& angle)
 	m_Rotation = angle;
 }
 
-//void Object::RotateZ(float&& angle)
-//{
-//	m_Rotation.z = angle;
-//	std::cout << angle << "\n";
-//}
-
 void Object::SetGravity(bool value)
 {
 	m_Gravity = value;
@@ -48,12 +42,23 @@ void Object::CreateObject(const Shape& shape)
 
 void Object::CreateObject(const Shape& shape, Texture& texture)
 {
-	CreateGLMeshTexture(shape.vertices.data(), shape.indices.data(), shape.vertices.size(), shape.indices.size(), texture);
+	m_Texture = &texture;
+	m_HasTexture = true;
+	CreateGLMesh(shape.vertices.data(), shape.indices.data(), shape.vertices.size(), shape.indices.size());
 }
 
 void Object::DrawObject(const Shader& shader)
 {
 	shader.UseShader();
+	if (m_HasTexture) {
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, m_Texture->GetTextureID());
+		shader.SetUniformInt("hasTexture", 1);
+	}
+	else {
+		shader.SetUniformInt("hasTexture", 0);
+	}
+
 	glBindVertexArray(m_VAO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
 	glDrawElements(GL_TRIANGLES, m_IC, GL_UNSIGNED_INT, 0);
@@ -97,34 +102,6 @@ void Object::CreateGLMesh(const GLfloat* vertices, const GLuint* indices, GLuint
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	glBindVertexArray(0);
-}
-
-void Object::CreateGLMeshTexture(const GLfloat* vertices, const GLuint* indices, GLuint nV, GLuint nI, Texture& texture)
-{
-	m_IC = nI;
-		
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture.GetTextureId());
-
-	glGenVertexArrays(1, &m_VAO);
-	glBindVertexArray(m_VAO);
-
-	glGenBuffers(1, &m_EBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * nI, indices, GL_STATIC_DRAW);
-
-	glGenBuffers(1, &m_VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * nV, vertices, GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, (void*)0);
-	glEnableVertexAttribArray(0);
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-	glBindVertexArray(0);
-
 }
 
 void Object::HandleGravity(float ts)

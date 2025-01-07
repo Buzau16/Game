@@ -55,16 +55,22 @@ void Shader::ClearShader()
 		}
 }
 
-void Shader::SetUniformMatrix(const std::string& name, glm::mat4 matrix)
+void Shader::SetUniformMatrix(const std::string& name, glm::mat4 matrix) const
 {
 	GLuint location = glGetUniformLocation(m_ShaderID, name.c_str());
 	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
-void Shader::SetUnifromVec3(const std::string& name, glm::vec3 vector)
+void Shader::SetUnifromVec3(const std::string& name, glm::vec3 vector) const
 {
 	GLuint location = glGetUniformLocation(m_ShaderID, name.c_str());
 	glUniform3fv(location, 1, glm::value_ptr(vector));
+}
+
+void Shader::SetUniformInt(const std::string& name, GLint value) const
+{
+	GLuint location = glGetUniformLocation(m_ShaderID, name.c_str());
+	glUniform1i(location, value);
 }
 
 void Shader::CompileShader(const char* vertexCode, const char* fragmentCode)
