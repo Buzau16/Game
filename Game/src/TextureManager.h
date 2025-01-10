@@ -15,11 +15,11 @@ public:
 	void LoadTexture(const std::string& name, const std::string& filePath);
 
 	std::shared_ptr<Texture> GetTexture(const std::string& name);
-	
+
 	void ClearTextures() { m_Textures.clear(); };
 
 private:
-	
+
 	TextureManager() = default;
 	TextureManager(const TextureManager&) = delete;
 	TextureManager& operator=(const TextureManager&) = delete;

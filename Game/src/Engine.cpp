@@ -7,7 +7,19 @@ namespace Engine {
 		m_Window = Window("SDL", 960, 540);
 		m_Window.Init();
 
-		player.CreateObject(Shapes::CreateSquare(0.1f));
+
+		TextureManager& m_TextureManager = TextureManager::GetInstance();
+		m_TextureManager.LoadTexture("wood", "Textures/PaintedWood007C_1K-JPG_Color.jpg");
+		m_TextureManager.LoadTexture("woode", "Textures/PaintedWood007B_1K-JPG_Color.jpg");
+
+
+		
+		player.CreateObject(Shapes::CreateSquare(0.1f), *m_TextureManager.GetTexture("wood"));
+		
+		Object* obj1 = new Object();
+		obj1->CreateObject(Shapes::CreateRectangle(1.f, 1.f), *m_TextureManager.GetTexture("woode"));
+
+		m_Objects.push_back(obj1);
 
 		m_Shader = Shader("Shaders/shader.vert", "Shaders/shader.frag");
 		m_Renderer.setShader(m_Shader);
@@ -18,7 +30,7 @@ namespace Engine {
 			m_Renderer.AddObject(obj);
 		}
 
-		player.SetColor(0.8f, 0.2f, 0.3f);
+		//player.SetColor(0.8f, 0.2f, 0.3f);
 
 		MainLoop();
 

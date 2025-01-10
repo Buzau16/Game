@@ -22,7 +22,7 @@ public:
 	void SetGravity(bool value);
 	void ModifyMass(float mass);
 	void SetColor(float r, float g, float b);
-	glm::vec3 GetColor() { return m_Color; };
+	inline glm::vec3 GetColor() { return m_Color; };
 	bool IsVisible() { return m_IsVisible; };
 	void SetObjectVisible(bool value) { m_IsVisible = value; };
 
