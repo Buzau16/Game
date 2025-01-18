@@ -2,20 +2,19 @@
 
 void Renderer::Init()
 {
-	
+	m_Camera = Camera(glm::vec2(0.0f, 0.0f), 1.f);
 }
 
 void Renderer::Draw(int Width, int Height)
 {
 	for (auto& obj : m_Objects) {
 
-		glm::mat4 m_Proj = glm::perspective(glm::radians(90.0f), (GLfloat)Width / (GLfloat)Height, 0.1f, 100.0f);
-		m_MVP = m_Proj * m_View * obj->HandleModelMatrix();
-
 		if (!obj->IsVisible()) {
 			continue;
 		}
 
+		//m_Camera.UpdateMatricies(Width, Height);
+		m_MVP = m_Camera.GetVPMatricies() * obj->HandleModelMatrix();
 		m_Shader.SetUnifromVec3("vCol", obj->GetColor());
 		m_Shader.SetUniformMatrix("MVP", m_MVP);
 		obj->DrawObject(m_Shader);

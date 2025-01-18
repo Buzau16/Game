@@ -22,8 +22,8 @@ public:
 	void SetGravity(bool value);
 	void ModifyMass(float mass);
 	void SetColor(float r, float g, float b);
-	inline glm::vec3 GetColor() { return m_Color; };
-	bool IsVisible() { return m_IsVisible; };
+	inline glm::vec3 GetColor() const { return m_Color; };
+	bool IsVisible() const { return m_IsVisible; };
 	void SetObjectVisible(bool value) { m_IsVisible = value; };
 
 	void Scale(const float scale);
@@ -35,6 +35,7 @@ public:
 	
 	void Update(float ts);
 	glm::mat4 HandleModelMatrix() const;
+	glm::vec2 GetPosition() const { return m_Position; };
 
 protected:
 

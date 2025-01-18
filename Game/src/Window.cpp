@@ -85,6 +85,13 @@ void Window::PollEvents()
 		case SDL_KEYUP:
 			KeyboardHandler::HandleKeyboardEvent(event);
 			break;
+		/*case SDL_MOUSEWHEEL:
+			if (event.wheel.y > 0) {
+				Renderer::GetCamera().AdjustZoom(0.1f);
+			}
+			if (event.wheel.y < 0) {
+				Renderer::GetCamera().AdjustZoom(-0.1f);
+			}*/
 
 		default:
 			break;

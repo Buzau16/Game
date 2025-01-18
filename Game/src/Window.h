@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include <iostream>
 #include "KeyboardHandler.h"
+#include "Renderer.h"
 
 
 class Window

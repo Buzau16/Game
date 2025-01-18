@@ -7,6 +7,8 @@ namespace Engine {
 		m_Window = Window("SDL", 960, 540);
 		m_Window.Init();
 
+		m_Renderer.GetCamera().SetPosition(glm::vec2(0.0f, 0.0f));
+		m_Renderer.GetCamera().SetZoom(0.5f);
 
 		TextureManager& m_TextureManager = TextureManager::GetInstance();
 		m_TextureManager.LoadTexture("wood", "Textures/PaintedWood007C_1K-JPG_Color.jpg");
@@ -49,12 +51,11 @@ namespace Engine {
 			m_Window.PollEvents();
 			m_Window.HandleResizing();
 
-			
-
 			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			player.HandleMovement();
+			m_Renderer.GetCamera().Follow(player);
 
 			m_Renderer.Draw(m_Window.GetWidth(), m_Window.GetHeight());
 
