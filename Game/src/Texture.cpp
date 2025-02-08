@@ -2,6 +2,8 @@
 
 void Texture::LoadTexture(const char* filePath)
 {
+
+	stbi_set_flip_vertically_on_load(1);
 	unsigned char* data = stbi_load(filePath, &m_Width, &m_Height, &m_BitDepth, 0);
 	if (!data) {
 		std::cerr << "Failed Loading Texture at: " << filePath << "\n";
@@ -13,8 +15,8 @@ void Texture::LoadTexture(const char* filePath)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 
 	GLenum format = (m_BitDepth == 4) ? GL_RGBA : GL_RGB;

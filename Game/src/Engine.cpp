@@ -5,18 +5,19 @@ namespace Engine {
 	void Engine::Start()
 	{
 		m_Window = Window("SDL", 960, 540);
+		m_Renderer.Init();
 		m_Window.Init();
 
-		m_Renderer.GetCamera().SetPosition(glm::vec2(0.0f, 0.0f));
-		m_Renderer.GetCamera().SetZoom(0.5f);
+		//m_Renderer.GetCamera().SetPosition(glm::vec2(0.0f, 0.0f));
+		//m_Renderer.GetCamera().SetZoom(0.5f);
 
 		TextureManager& m_TextureManager = TextureManager::GetInstance();
-		m_TextureManager.LoadTexture("wood", "Textures/PaintedWood007C_1K-JPG_Color.jpg");
+		m_TextureManager.LoadTexture("player", "Textures/Player.png");
 		m_TextureManager.LoadTexture("woode", "Textures/PaintedWood007B_1K-JPG_Color.jpg");
 
 
 		
-		player.CreateObject(Shapes::CreateSquare(0.1f), *m_TextureManager.GetTexture("wood"));
+		player.CreateObject(Shapes::CreateSquare(50.f), *m_TextureManager.GetTexture("player"));
 		
 		Object* obj1 = new Object();
 		obj1->CreateObject(Shapes::CreateRectangle(1.f, 1.f), *m_TextureManager.GetTexture("woode"));
@@ -27,6 +28,8 @@ namespace Engine {
 		m_Renderer.setShader(m_Shader);
 
 		m_Renderer.AddObject(&player);
+
+		obj1->SetObjectVisible(false);
 
 		for (auto& obj : m_Objects) {
 			m_Renderer.AddObject(obj);
@@ -55,7 +58,6 @@ namespace Engine {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			player.HandleMovement();
-			m_Renderer.GetCamera().Follow(player);
 
 			m_Renderer.Draw(m_Window.GetWidth(), m_Window.GetHeight());
 

@@ -2,6 +2,9 @@
 
 Camera::Camera(glm::vec2 position, float zoom) : m_Position(position), m_Zoom(zoom)
 {
+	m_VP = glm::mat4(1.0f);
+	m_View = glm::mat4(1.0f);
+	m_Proj = glm::mat4(1.0f);
 }
 
 void Camera::SetPosition(const glm::vec2& pos)
@@ -29,13 +32,12 @@ void Camera::Follow(const Object& obj)
 
 void Camera::UpdateMatricies(GLfloat Width, GLfloat Height)
 {
-	float left = m_Position.x - (Width / 2) / m_Zoom;
-	float right = m_Position.x + (Width / 2) / m_Zoom;
-	float up = m_Position.y + (Height / 2) / m_Zoom;
-	float down = m_Position.y - (Height / 2) / m_Zoom;
+	std::cout << "Updating camera matrices with: " << Width << "x" << Height << " Zoom: " << m_Zoom << std::endl;
+	std::cout << "Position: " << m_Position.x << ", " << m_Position.y << std::endl;
 
-	m_Proj = glm::ortho(left, right, down, up, -1.0f, 1.0f);
-	m_View = glm::translate(m_View, glm::vec3(-m_Position, 0.0f));
+	m_View = glm::translate(glm::mat4(1.f), glm::vec3(-m_Position, 0.0f));
 
-	m_VP = m_Proj * m_View;
+	m_VP = m_Proj;
+
+	std::cout << "VP Matrix: " << glm::to_string(m_VP) << std::endl;
 }

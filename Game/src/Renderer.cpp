@@ -2,19 +2,22 @@
 
 void Renderer::Init()
 {
-	m_Camera = Camera(glm::vec2(0.0f, 0.0f), 1.f);
+	//m_Camera = Camera(glm::vec2(0.0f, 0.0f), 5.f);
 }
+// AABB
 
-void Renderer::Draw(int Width, int Height)
-{
+void Renderer::Draw(int Width, int Height){
+
+	glm::mat4 Proj = glm::ortho(0.f, (float)Width, 0.0f, (float)Height);
+
 	for (auto& obj : m_Objects) {
 
 		if (!obj->IsVisible()) {
 			continue;
 		}
 
-		//m_Camera.UpdateMatricies(Width, Height);
-		m_MVP = m_Camera.GetVPMatricies() * obj->HandleModelMatrix();
+		
+		m_MVP = obj->HandleModelMatrix() * Proj;
 		m_Shader.SetUnifromVec3("vCol", obj->GetColor());
 		m_Shader.SetUniformMatrix("MVP", m_MVP);
 		obj->DrawObject(m_Shader);
