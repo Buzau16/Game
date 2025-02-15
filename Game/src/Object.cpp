@@ -10,6 +10,12 @@ void Object::TranslateY(const float pos)
 	m_Position.y = pos;
 }
 
+void Object::Translate(const float x, const float y)
+{
+	m_Position.x += x;
+	m_Position.y += y;
+}
+
 void Object::Rotate(float& angle)
 {
 	m_Rotation = angle;
@@ -74,7 +80,7 @@ void Object::Update(float ts)
 glm::mat4 Object::HandleModelMatrix() const
 {
 	glm::mat4 model(1.0f);
-	model = glm::translate(model, glm::vec3(m_Position, -1.0f));
+	model = glm::translate(model, glm::vec3(m_Position, 0.0f));
 	model = glm::rotate(model, glm::radians(m_Rotation), glm::vec3(0.0f, 0.0f, 1.0f));
 	model = glm::scale(model, glm::vec3(m_Scale, 1.0f));
 

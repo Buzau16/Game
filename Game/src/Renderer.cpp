@@ -8,7 +8,8 @@ void Renderer::Init()
 
 void Renderer::Draw(int Width, int Height){
 
-	glm::mat4 Proj = glm::ortho(0.f, (float)Width, 0.0f, (float)Height);
+	// Projection Matrix is "recalculated" every draw call. Could be a performance improvement later on...
+	glm::mat4 Proj = glm::ortho(0.f, (float)Width, (float)Height, 0.0f, -1.f, 1.f);
 
 	for (auto& obj : m_Objects) {
 
@@ -17,7 +18,7 @@ void Renderer::Draw(int Width, int Height){
 		}
 
 		
-		m_MVP = obj->HandleModelMatrix() * Proj;
+		m_MVP = Proj * obj->HandleModelMatrix();
 		m_Shader.SetUnifromVec3("vCol", obj->GetColor());
 		m_Shader.SetUniformMatrix("MVP", m_MVP);
 		obj->DrawObject(m_Shader);

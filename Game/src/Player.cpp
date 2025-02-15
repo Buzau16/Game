@@ -10,10 +10,10 @@ void Player::HandleMovement()
 	m_Direction = glm::vec2(0.0f);
 
 	if (KeyboardHandler::isPressed(SDL_SCANCODE_W)) {
-		m_Direction.y = 1.f;
+		m_Direction.y = -1.f;
 	}
     if (KeyboardHandler::isPressed(SDL_SCANCODE_S)) {
-		m_Direction.y = -1.f;
+		m_Direction.y = 1.f;
 	}
 	if (KeyboardHandler::isPressed(SDL_SCANCODE_D)) {
 		m_Direction.x = 1.f;

@@ -37,7 +37,7 @@ void Camera::UpdateMatricies(GLfloat Width, GLfloat Height)
 
 	m_View = glm::translate(glm::mat4(1.f), glm::vec3(-m_Position, 0.0f));
 
-	m_VP = m_Proj;
+	m_VP = m_View;
 
 	std::cout << "VP Matrix: " << glm::to_string(m_VP) << std::endl;
 }

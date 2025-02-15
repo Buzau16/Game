@@ -15,7 +15,8 @@ public:
 
 	void TranslateX(const float pos);
 	void TranslateY(const float pos);
-
+	
+	void Translate(const float x, const float y);
 
 	void Rotate(float& angle);
 

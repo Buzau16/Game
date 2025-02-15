@@ -21,6 +21,6 @@ public:
 private:
 	glm::vec2 m_Direction = glm::vec2(0.0f);
 	glm::vec2 m_Velocity = glm::vec2(0.0f);
-	float m_Speed = 0.03f;
+	float m_Speed = 10.f;
 };
 

@@ -3,7 +3,7 @@
 void Texture::LoadTexture(const char* filePath)
 {
 
-	stbi_set_flip_vertically_on_load(1);
+	//stbi_set_flip_vertically_on_load(1);
 	unsigned char* data = stbi_load(filePath, &m_Width, &m_Height, &m_BitDepth, 0);
 	if (!data) {
 		std::cerr << "Failed Loading Texture at: " << filePath << "\n";

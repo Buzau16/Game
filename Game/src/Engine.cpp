@@ -13,14 +13,14 @@ namespace Engine {
 
 		TextureManager& m_TextureManager = TextureManager::GetInstance();
 		m_TextureManager.LoadTexture("player", "Textures/Player.png");
-		m_TextureManager.LoadTexture("woode", "Textures/PaintedWood007B_1K-JPG_Color.jpg");
+		m_TextureManager.LoadTexture("box", "Textures/Box.png");
 
 
 		
 		player.CreateObject(Shapes::CreateSquare(50.f), *m_TextureManager.GetTexture("player"));
 		
 		Object* obj1 = new Object();
-		obj1->CreateObject(Shapes::CreateRectangle(1.f, 1.f), *m_TextureManager.GetTexture("woode"));
+		obj1->CreateObject(Shapes::CreateRectangle(1.f, 1.f), *m_TextureManager.GetTexture("box"));
 
 		m_Objects.push_back(obj1);
 
@@ -29,13 +29,13 @@ namespace Engine {
 
 		m_Renderer.AddObject(&player);
 
-		obj1->SetObjectVisible(false);
 
 		for (auto& obj : m_Objects) {
 			m_Renderer.AddObject(obj);
 		}
 
 		//player.SetColor(0.8f, 0.2f, 0.3f);
+		player.Translate(400, 400);
 
 		MainLoop();
 
@@ -53,6 +53,8 @@ namespace Engine {
 
 			m_Window.PollEvents();
 			m_Window.HandleResizing();
+
+			//glOrtho(0.0f, m_Window.GetWidth(), m_Window.GetHeight(), 0.0f, 0.f, 1.0f);
 
 			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
