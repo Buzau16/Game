@@ -5,26 +5,23 @@
 #include "TextureManager.h"
 #include <vector>
 
-namespace Engine {
-	class Engine
-	{
-	public:
-		Engine() = default;
-		~Engine() = default;
+class Engine
+{
+public:
+	Engine() = default;
+	~Engine() = default;
 
-		void Start();
+	void Start();
 
-	private:
-		void MainLoop();
-		std::vector<Object*> m_Objects;
-		Player player;
-		Window m_Window;
-		Renderer m_Renderer;
-		Shader m_Shader;
-		
+private:
+	void MainLoop();
+	std::vector<Object*> m_Objects;
+	Player player;
+	Window m_Window;
+	Shader m_Shader;
 
-		float ts = 0;
-	};
 
-}
+	float ts = 0;
+};
+
 
