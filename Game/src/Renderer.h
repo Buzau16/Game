@@ -20,7 +20,7 @@ public:
 	void AddObject(Object* object) { m_Objects.push_back(object); };
 
 	void Draw(int Width, int Height);
-	Camera GetCamera() { return m_Camera; };
+	Camera& GetCamera() { return m_Camera; };
 
 	void setShader(const Shader& shader);
 	

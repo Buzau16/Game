@@ -6,7 +6,7 @@ void Engine::Start()
 	Renderer::GetInstance().Init();
 	m_Window.Init();
 
-	//m_Renderer.GetCamera().SetPosition(glm::vec2(0.0f, 0.0f));
+	Renderer::GetInstance().GetCamera().SetPosition(glm::vec2(0.0f, 0.0f));
 	//m_Renderer.GetCamera().SetZoom(0.5f);
 
 	TextureManager& m_TextureManager = TextureManager::GetInstance();
@@ -18,7 +18,7 @@ void Engine::Start()
 	player.CreateObject(Shapes::CreateSquare(50.f), *m_TextureManager.GetTexture("player"));
 
 	Object* obj1 = new Object();
-	obj1->CreateObject(Shapes::CreateRectangle(1.f, 1.f), *m_TextureManager.GetTexture("box"));
+	obj1->CreateObject(Shapes::CreateRectangle(50.f, 50.f), *m_TextureManager.GetTexture("box"));
 
 	m_Objects.push_back(obj1);
 
@@ -33,7 +33,8 @@ void Engine::Start()
 	}
 
 	//player.SetColor(0.8f, 0.2f, 0.3f);
-	player.Translate(400, 400);
+	player.Translate(480, 270);
+	obj1->Translate(400, 400);
 
 	MainLoop();
 
@@ -59,8 +60,10 @@ void Engine::MainLoop()
 
 		player.HandleMovement();
 
+		std::cout << "Player pos.x: " << player.GetPosition().x << "\n";
+		std::cout << "Player pos.y: " << player.GetPosition().y << "\n";
+
 		Renderer::GetInstance().GetCamera().Follow(player);
-		Renderer::GetInstance().GetCamera().SetPosition(glm::vec2(1.f));
 
 		Renderer::GetInstance().Draw(m_Window.GetWidth(), m_Window.GetHeight());
 
@@ -69,4 +72,5 @@ void Engine::MainLoop()
 		timeStep = (float)sT - (float)fT;
 		fT = sT;
 	}
+	m_Window.Destroy();
 }

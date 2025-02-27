@@ -19,7 +19,7 @@ void Renderer::Draw(int Width, int Height){
 		}
 
 		
-		m_MVP = m_Camera.GetViewMatrix() * Proj * obj->HandleModelMatrix();
+		m_MVP = Proj * m_Camera.GetViewMatrix() * obj->HandleModelMatrix();
 		m_Shader.SetUnifromVec3("vCol", obj->GetColor());
 		m_Shader.SetUniformMatrix("MVP", m_MVP);
 		obj->DrawObject(m_Shader);

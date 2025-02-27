@@ -14,8 +14,8 @@ void Camera::AdjustZoom(float value)
 {
 	m_Zoom += value;
 
-	if (m_Zoom > 10.f) m_Zoom = 10.f;
-	if (m_Zoom < 0.1f) m_Zoom = 0.1f;
+	if (m_Zoom > 5.f) m_Zoom = 5.f;
+	if (m_Zoom < 0.5f) m_Zoom = 0.5f;
 
 }
 void Camera::Move(glm::vec2& value)
@@ -24,7 +24,9 @@ void Camera::Move(glm::vec2& value)
 }
 void Camera::Follow(const Object& obj)
 {
-	m_Position = obj.GetPosition();
+
+	m_Position = glm::mix(m_Position, obj.GetPosition(), 0.2);
+	//m_Position = obj.GetPosition();
 }
 
 
@@ -33,14 +35,7 @@ void Camera::UpdateMatricies(GLfloat Width, GLfloat Height)
 	std::cout << "Updating camera matrices with: " << Width << "x" << Height << " Zoom: " << m_Zoom << std::endl;
 	std::cout << "Position: " << m_Position.x << ", " << m_Position.y << std::endl;
 
-	if (KeyboardHandler::isPressed(SDL_SCANCODE_I)) {
-		m_Zoom -= 0.1f;
-	}
-	if (KeyboardHandler::isPressed(SDL_SCANCODE_O)) {
-		m_Zoom += 0.1f;
-	}
-
-	m_View = glm::translate(glm::mat4(1.f), glm::vec3(-m_Position, 0.0f));
+	m_View = glm::translate(glm::mat4(1.f), glm::vec3(-m_Position.x + Width / 2, -m_Position.y + Height / 2, 0.0f));
 
 	glm::mat4 zoomMatrix = glm::scale(glm::mat4(1.f), glm::vec3(m_Zoom, m_Zoom, 1.0f));
 
