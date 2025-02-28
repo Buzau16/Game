@@ -1,15 +1,5 @@
 #include "Object.h"
 
-void Object::TranslateX(const float pos)
-{
-	m_Position.x = pos;
-}
-
-void Object::TranslateY(const float pos)
-{
-	m_Position.y = pos;
-}
-
 void Object::Translate(const float x, const float y)
 {
 	m_Position.x += x;

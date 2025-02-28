@@ -16,11 +16,11 @@ public:
 	float GetPlayerSpeed() { return m_Speed; };
 	void SetPlayerSpeed(float speed) { m_Speed = speed; };
 
-	void HandleMovement();
+	void HandleMovement(float deltaTime);
 
 private:
 	glm::vec2 m_Direction = glm::vec2(0.0f);
 	glm::vec2 m_Velocity = glm::vec2(0.0f);
-	float m_Speed = 10.f;
+	float m_Speed = 1.f;
 };
 

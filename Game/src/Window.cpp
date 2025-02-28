@@ -92,6 +92,7 @@ void Window::PollEvents()
 			if (event.wheel.y < 0) {
 				Renderer::GetInstance().GetCamera().AdjustZoom(-0.1f);
 			}
+			break;
 
 		default:
 			break;

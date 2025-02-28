@@ -3,6 +3,7 @@
 #include "Renderer.h"
 #include "Shader.h"
 #include "TextureManager.h"
+#include "Scene.h"
 #include <vector>
 
 class Engine
@@ -15,11 +16,13 @@ public:
 
 private:
 	void MainLoop();
-	std::vector<Object*> m_Objects;
+
+
+	/*std::vector<Object*> m_Objects;*/
 	Player player;
 	Window m_Window;
 	Shader m_Shader;
-
+	Scene m_Scene;
 
 	float ts = 0;
 };

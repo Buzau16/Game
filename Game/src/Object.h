@@ -13,9 +13,6 @@ public:
 	Object() = default;
 	~Object() = default;
 
-	void TranslateX(const float pos);
-	void TranslateY(const float pos);
-	
 	void Translate(const float x, const float y);
 
 	void Rotate(float& angle);
@@ -54,6 +51,6 @@ protected:
 	GLuint m_VAO = 0, m_VBO = 0, m_EBO = 0, m_IC = 0;
 	bool m_IsVisible = true;
 
-	Texture* m_Texture;
+	Texture* m_Texture = nullptr;
 	bool m_HasTexture = false;
 };

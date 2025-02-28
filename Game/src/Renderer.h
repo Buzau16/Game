@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Window.h"
 #include "Camera.h"
+#include "Scene.h"
 
 
 class Renderer {
@@ -16,13 +17,16 @@ public:
 		return instance;
 	};
 
-	void Init();
-	void AddObject(Object* object) { m_Objects.push_back(object); };
+	void Init(int Width, int Height);
+	//void AddObject(Object* object) { m_Objects.push_back(object); };
 
-	void Draw(int Width, int Height);
+
+
+	void Draw();
 	Camera& GetCamera() { return m_Camera; };
 
-	void setShader(const Shader& shader);
+	void SetScene(const Scene& scene);
+	void SetShader(const Shader& shader);
 	
 	
 
@@ -32,7 +36,10 @@ private:
 	Renderer(const Renderer&) = delete;
 	Renderer& operator=(const Renderer&) = delete;
 
-	std::vector<Object*> m_Objects;
+
+	int m_Width, m_Height;
+	Scene m_Scene;
+	/*std::vector<Object*> m_Objects;*/
 	glm::mat4 m_View = glm::mat4(1.0f);
 	glm::mat4 m_MVP = glm::mat4(1.0f);
 	Shader m_Shader;
