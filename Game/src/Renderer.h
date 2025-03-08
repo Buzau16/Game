@@ -25,7 +25,7 @@ public:
 	void SetScene(const Scene& scene);
 	void SetShader(const Shader& shader);
 	
-	
+	void HandleResizing(int Width, int Height) { m_Width = Width; m_Height = Height; };
 
 private:
 

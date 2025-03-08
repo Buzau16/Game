@@ -28,10 +28,10 @@ namespace Shapes {
 
 	Shape CreateRectangle(float w, float h) {
 		return Shape(
-			{ -1.0f * w / 2, -1.0f * h / 2, 0.0f, 0.0f, 0.0f,
-			   1.0f * w / 2, -1.0f * h / 2, 0.0f, 1.0f, 0.0f,
-			   1.0f * w / 2,  1.0f * h / 2, 0.0f, 1.0f, 1.0f,
-			  -1.0f * w / 2,  1.0f * h / 2, 0.0f, 0.0f, 1.0f, },
+			{ -1.0f * w, -1.0f * h, 0.0f, 0.0f, 0.0f,
+			   1.0f * w, -1.0f * h, 0.0f, 1.0f, 0.0f,
+			   1.0f * w,  1.0f * h, 0.0f, 1.0f, 1.0f,
+			  -1.0f * w,  1.0f * h, 0.0f, 0.0f, 1.0f, },
 			{ 0, 1, 2,
 			 2, 3, 0 });
 	}

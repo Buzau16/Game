@@ -18,13 +18,13 @@ void Engine::Start()
 
 	m_Scene.AddObject(&player);
 
-	for (int y = 0; y < 10; y++)
+	for (int y = 0; y < 5; y++)
 	{
-		for (int x = 0; x < 10; x++)
+		for (int x = 0; x < 5; x++)
 		{
 			Object* obj = new Object();
 			obj->CreateObject(Shapes::CreateRectangle(50.f, 50.f), *m_TextureManager.GetTexture("tile"));
-			obj->Translate(x * 50, y * 50);
+			obj->Translate(x * 100, y * 100);
 			m_Scene.AddObject(obj);
 		}
 	}
@@ -43,6 +43,8 @@ void Engine::MainLoop()
 	float timeStep = 0;
 	while (!m_Window.IsClosed()) {
 
+		SDL_GL_SetSwapInterval(1);
+
 		Uint32 sT = SDL_GetTicks();
 		timeStep = (float)sT - (float)fT;
 
@@ -60,7 +62,7 @@ void Engine::MainLoop()
 
 		SDL_GL_SwapWindow(m_Window.GetWindow());
 		
-		std::cout << " " << timeStep << std::endl;
+		//std::cout << "FPS: " << 1.f / timeStep << std::endl;
 
 		fT = sT;
 	}

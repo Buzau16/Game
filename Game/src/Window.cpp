@@ -78,6 +78,7 @@ void Window::PollEvents()
 						m_Width = event.window.data1;
 						m_Height = event.window.data2;
 						m_IsResized = true;
+						Renderer::GetInstance().HandleResizing(m_Width, m_Height);
 					}
 			break;
 

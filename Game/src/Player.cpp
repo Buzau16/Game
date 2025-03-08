@@ -23,6 +23,6 @@ void Player::HandleMovement(float deltaTime)
 		m_Velocity = m_Direction * m_Speed * deltaTime;
 	}
 
-	m_Velocity = glm::mix(m_Velocity, glm::vec2(0.0f), 0.23f);
+	m_Velocity = glm::mix(m_Velocity, glm::vec2(0.0f), 0.2f);
 	m_Position += m_Velocity;
 }
