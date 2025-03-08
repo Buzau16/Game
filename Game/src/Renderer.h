@@ -18,9 +18,6 @@ public:
 	};
 
 	void Init(int Width, int Height);
-	//void AddObject(Object* object) { m_Objects.push_back(object); };
-
-
 
 	void Draw();
 	Camera& GetCamera() { return m_Camera; };
@@ -39,9 +36,10 @@ private:
 
 	int m_Width, m_Height;
 	Scene m_Scene;
-	/*std::vector<Object*> m_Objects;*/
+
 	glm::mat4 m_View = glm::mat4(1.0f);
 	glm::mat4 m_MVP = glm::mat4(1.0f);
+
 	Shader m_Shader;
 	Camera m_Camera;
 	

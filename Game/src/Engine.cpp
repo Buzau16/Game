@@ -9,23 +9,25 @@ void Engine::Start()
 	TextureManager& m_TextureManager = TextureManager::GetInstance();
 	m_TextureManager.LoadTexture("player", "Textures/Player.png");
 	m_TextureManager.LoadTexture("box", "Textures/Box.png");
+	m_TextureManager.LoadTexture("tile", "Textures/Tile.png");
 
 	player.CreateObject(Shapes::CreateSquare(50.f), *m_TextureManager.GetTexture("player"));
-
-	Object* obj1 = new Object();
-	obj1->CreateObject(Shapes::CreateRectangle(50.f, 50.f), *m_TextureManager.GetTexture("box"));
-
-	Object* obj2 = new Object();
-	obj2->CreateObject(Shapes::CreateRectangle(50.f, 50.f), *m_TextureManager.GetTexture("box"));
 
 	m_Shader = Shader("Shaders/shader.vert", "Shaders/shader.frag");
 	Renderer::GetInstance().SetShader(m_Shader);
 
 	m_Scene.AddObject(&player);
-	m_Scene.AddObject(obj1);
-	m_Scene.AddObject(obj2);
 
-	obj2->Translate(100.f, 100.f);
+	for (int y = 0; y < 10; y++)
+	{
+		for (int x = 0; x < 10; x++)
+		{
+			Object* obj = new Object();
+			obj->CreateObject(Shapes::CreateRectangle(50.f, 50.f), *m_TextureManager.GetTexture("tile"));
+			obj->Translate(x * 50, y * 50);
+			m_Scene.AddObject(obj);
+		}
+	}
 
 	Renderer::GetInstance().SetScene(m_Scene);
 
@@ -47,7 +49,7 @@ void Engine::MainLoop()
 		m_Window.PollEvents();
 		m_Window.HandleResizing();
 
-		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+		glClearColor(0.0f, 0.3f, 0.7f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		player.HandleMovement(timeStep);
@@ -58,7 +60,7 @@ void Engine::MainLoop()
 
 		SDL_GL_SwapWindow(m_Window.GetWindow());
 		
-		std::cout << "TimeStep: " << timeStep << std::endl;
+		std::cout << " " << timeStep << std::endl;
 
 		fT = sT;
 	}

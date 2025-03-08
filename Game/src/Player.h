@@ -12,7 +12,6 @@ public:
 	Player() = default;
 	~Player() = default;
 
-	void Render();
 	float GetPlayerSpeed() { return m_Speed; };
 	void SetPlayerSpeed(float speed) { m_Speed = speed; };
 

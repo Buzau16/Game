@@ -1,5 +1,9 @@
 #include "Shapes.h"
 
+// Format: {x, y, z, u, v }
+// Indices: { TL, TR, BR, 
+//			 BR, BL, TL}
+
 namespace Shapes {
 	Shape CreateSquare(float l) {
 		return Shape(

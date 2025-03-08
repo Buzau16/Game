@@ -1,10 +1,5 @@
 #include "Player.h"
 
-void Player::Render()
-{
-
-}
-
 void Player::HandleMovement(float deltaTime)
 {
 	m_Direction = glm::vec2(0.0f);
